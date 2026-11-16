@@ -1,0 +1,4 @@
+# Node modules and local render outputs stay out of the entry.
+node_modules/
+out/
+*.log

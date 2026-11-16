@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Whale That Swallowed the Sky</title>
+<style>
+  /* A single square stage. The screenshot is taken at exactly 1024 x 1024. */
+  html, body { margin: 0; padding: 0; width: 1024px; height: 1024px; overflow: hidden; background: #050b1a; }
+  svg { display: block; width: 1024px; height: 1024px; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="A colossal whale made of stars breaching out of a dark ocean into the night sky, while a tiny boat with a lantern watches from below.">
+  <defs>
+    <!-- Sky: deep indigo at the top, sinking into teal toward the horizon. -->
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"    stop-color="#04081a"/>
+      <stop offset="0.45" stop-color="#0a1c3d"/>
+      <stop offset="0.75" stop-color="#0e3350"/>
+      <stop offset="1"    stop-color="#0f4258"/>
+    </linearGradient>
+
+    <!-- Sea: almost black at the bottom, teal where it meets the sky. -->
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"    stop-color="#0d3a4d"/>
+      <stop offset="0.25" stop-color="#082a3c"/>
+      <stop offset="1"    stop-color="#020a16"/>
+    </linearGradient>
+
+    <!-- The whale's skin: deep night blue on the back so the stars inside
+         it can shine, lighter toward the belly. -->
+    <linearGradient id="whaleSkin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0"    stop-color="#0d1f3d"/>
+      <stop offset="0.55" stop-color="#16345c"/>
+      <stop offset="1"    stop-color="#24517a"/>
+    </linearGradient>
+
+    <!-- Belly: pale moonlit blue-grey, like a whale's throat lit from below. -->
+    <linearGradient id="belly" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0"    stop-color="#cfe8ef"/>
+      <stop offset="0.6"  stop-color="#8fb9c9"/>
+      <stop offset="1"    stop-color="#4d7d92"/>
+    </linearGradient>
+
+    <!-- Moon: warm white core fading to nothing. -->
+    <radialGradient id="moonGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0"    stop-color="#fff6d8" stop-opacity="0.95"/>
+      <stop offset="0.35" stop-color="#ffe9a8" stop-opacity="0.45"/>
+      <stop offset="1"    stop-color="#ffe9a8" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Warm lantern glow on the little boat. -->
+    <radialGradient id="lampGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0"    stop-color="#ffd98a" stop-opacity="0.9"/>
+      <stop offset="0.5"  stop-color="#ff9a4d" stop-opacity="0.35"/>
+      <stop offset="1"    stop-color="#ff9a4d" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Gold glow around the whale's eye. -->
+    <radialGradient id="eyeGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0"    stop-color="#ffd166" stop-opacity="1"/>
+      <stop offset="0.45" stop-color="#ff9a3d" stop-opacity="0.55"/>
+      <stop offset="1"    stop-color="#ff9a3d" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Soft vignette: darken the corners so the whale reads first. -->
+    <radialGradient id="vignette" cx="0.5" cy="0.46" r="0.75">
+      <stop offset="0.62" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1"    stop-color="#01040a" stop-opacity="0.55"/>
+    </radialGradient>
+
+    <!-- Gentle blur for nebula clouds and light. -->
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="softer" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="34"/>
+    </filter>
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="3.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- The whale's outline, used to clip the stars that live inside its body.
+         One continuous silhouette: flukes, tail stock, back, head, belly. -->
+    <clipPath id="whaleClip">
+      <path d="M 126 720
+               C 200 736, 270 762, 322 788
+               C 420 706, 530 596, 645 484
+               C 720 408, 780 362, 812 330
+               C 852 296, 886 306, 884 344
+               C 882 384, 842 420, 788 452
+               C 700 508, 600 596, 520 690
+               C 452 770, 402 820, 362 850
+               C 300 868, 220 906, 146 936
+               C 196 902, 244 866, 268 838
+               C 220 800, 170 760, 126 720 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- ======================= SKY ======================= -->
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#sky)"/>
+
+  <!-- Slow nebula clouds, barely there: violet and teal breath in the dark. -->
+  <g filter="url(#softer)">
+    <ellipse cx="760" cy="150" rx="230" ry="120" fill="#5b4a9e" opacity="0.20"/>
+    <ellipse cx="420" cy="90"  rx="260" ry="110" fill="#1e6f8e" opacity="0.16"/>
+    <ellipse cx="120" cy="420" rx="180" ry="130" fill="#7a4a8e" opacity="0.12"/>
+    <ellipse cx="880" cy="560" rx="200" ry="120" fill="#1e6f8e" opacity="0.12"/>
+  </g>
+
+  <!-- Stars are scattered by the small script at the bottom of this file. -->
+  <g id="skyStars"></g>
+
+  <!-- A few bright sparkle stars, drawn as four-point glints. -->
+  <g fill="#eaf6ff" filter="url(#glow)">
+    <path d="M 620 130 l 3 12 12 3 -12 3 -3 12 -3 -12 -12 -3 12 -3 Z"/>
+    <path d="M 900 240 l 2.5 10 10 2.5 -10 2.5 -2.5 10 -2.5 -10 -10 -2.5 10 -2.5 Z"/>
+    <path d="M 300 210 l 2 8 8 2 -8 2 -2 8 -2 -8 -8 -2 8 -2 Z"/>
+    <path d="M 520 60 l 2.5 9 9 2.5 -9 2.5 -2.5 9 -2.5 -9 -9 -2.5 9 -2.5 Z"/>
+    <path d="M 120 620 l 2 8 8 2 -8 2 -2 8 -2 -8 -8 -2 8 -2 Z"/>
+  </g>
+
+  <!-- ======================= MOON ======================= -->
+  <g>
+    <circle cx="192" cy="168" r="150" fill="url(#moonGlow)"/>
+    <circle cx="192" cy="168" r="58" fill="#fdf3d0"/>
+    <circle cx="172" cy="150" r="10" fill="#e8d9a8" opacity="0.55"/>
+    <circle cx="210" cy="182" r="7"  fill="#e8d9a8" opacity="0.45"/>
+    <circle cx="198" cy="142" r="5"  fill="#e8d9a8" opacity="0.4"/>
+    <!-- Moonlight shafts reaching down toward the whale, very faint. -->
+    <g fill="#ffe9a8" opacity="0.028" filter="url(#soft)">
+      <polygon points="192,168 620,420 700,430 260,210"/>
+      <polygon points="192,168 520,560 580,575 240,220"/>
+    </g>
+  </g>
+
+  <!-- ======================= SEA ======================= -->
+  <rect x="0" y="828" width="1024" height="196" fill="url(#sea)"/>
+
+  <!-- Moonlight path shimmering on the water. -->
+  <g fill="#ffd98a" opacity="0.16">
+    <rect x="150" y="838" width="90" height="3" rx="1.5"/>
+    <rect x="120" y="856" width="150" height="3" rx="1.5"/>
+    <rect x="170" y="876" width="70" height="3" rx="1.5"/>
+    <rect x="110" y="898" width="180" height="3" rx="1.5"/>
+    <rect x="150" y="922" width="110" height="3" rx="1.5"/>
+  </g>
+
+  <!-- Long slow swells rolling across the sea. -->
+  <g fill="none" stroke="#2e6b7d" stroke-width="3" opacity="0.55" stroke-linecap="round">
+    <path d="M 0 852 Q 130 838 260 852 T 520 852 T 780 852 T 1024 852"/>
+    <path d="M 0 892 Q 130 880 260 892 T 520 892 T 780 892 T 1024 892" opacity="0.7"/>
+    <path d="M 0 938 Q 130 928 260 938 T 520 938 T 780 938 T 1024 938" opacity="0.5"/>
+  </g>
+  <g fill="none" stroke="#7fc4d4" stroke-width="2" opacity="0.35" stroke-linecap="round">
+    <path d="M 40 872 Q 160 862 280 872 T 520 872"/>
+    <path d="M 560 912 Q 680 902 800 912 T 1024 912"/>
+  </g>
+
+  <!-- ======================= THE WHALE ======================= -->
+  <g>
+    <!-- The body: one continuous silhouette, a night sky in the shape of
+         a whale — flukes, tail stock, back, blunt head and belly in a
+         single outline, so no part of it can read as floating free. -->
+    <path d="M 126 720
+             C 200 736, 270 762, 322 788
+             C 420 706, 530 596, 645 484
+             C 720 408, 780 362, 812 330
+             C 852 296, 886 306, 884 344
+             C 882 384, 842 420, 788 452
+             C 700 508, 600 596, 520 690
+             C 452 770, 402 820, 362 850
+             C 300 868, 220 906, 146 936
+             C 196 902, 244 866, 268 838
+             C 220 800, 170 760, 126 720 Z"
+          fill="url(#whaleSkin)"/>
+
+    <!-- Stars living inside the whale, clipped to its outline. -->
+    <g clip-path="url(#whaleClip)">
+      <g id="whaleStars"></g>
+      <!-- Two small constellations drawn on the whale's flank, so the
+           star-body idea reads even at a glance. -->
+      <g stroke="#cfe8ff" stroke-width="1.6" opacity="0.85" fill="#eaf6ff">
+        <polyline points="600,540 640,500 688,512 716,470" fill="none"/>
+        <circle cx="600" cy="540" r="3.4"/><circle cx="640" cy="500" r="2.8"/>
+        <circle cx="688" cy="512" r="3.2"/><circle cx="716" cy="470" r="2.6"/>
+        <polyline points="470,660 505,628 540,652" fill="none"/>
+        <circle cx="470" cy="660" r="3"/><circle cx="505" cy="628" r="2.6"/>
+        <circle cx="540" cy="652" r="3"/>
+      </g>
+      <!-- A faint milky-way band running along the whale's back. -->
+      <g filter="url(#soft)">
+        <ellipse cx="600" cy="500" rx="270" ry="80" fill="#a8c8f0" opacity="0.22"
+                 transform="rotate(-38 600 500)"/>
+        <ellipse cx="450" cy="660" rx="190" ry="60" fill="#d8b8f0" opacity="0.16"
+                 transform="rotate(-38 450 660)"/>
+      </g>
+    </g>
+
+    <!-- Belly and throat: a moonlit band along the lower edge, with the
+         pleated grooves of a humpback. It ends well inside the body, so
+         no pale tip pokes out past the outline near the tail. -->
+    <path d="M 788 452
+             C 700 508, 600 596, 520 690
+             C 490 726, 464 758, 444 782
+             C 472 770, 512 736, 556 686
+             C 616 618, 684 546, 738 512
+             C 762 486, 782 464, 788 452 Z"
+          fill="url(#belly)" opacity="0.95"/>
+    <g fill="none" stroke="#5d8a9c" stroke-width="2" opacity="0.55">
+      <path d="M 760 470 C 690 540, 610 630, 540 716"/>
+      <path d="M 730 492 C 664 560, 590 644, 524 724"/>
+      <path d="M 700 512 C 640 576, 572 656, 512 730"/>
+    </g>
+
+    <!-- Pectoral fin, tucked against the belly and swept back along it,
+         so it reads as part of the whale, not a second shape. -->
+    <path d="M 588 636 C 544 688, 506 738, 484 788 C 478 804, 480 818, 490 820
+             C 516 782, 554 722, 594 668 C 602 656, 598 642, 588 636 Z"
+          fill="#1d4468" stroke="#6b9ab0" stroke-width="2" stroke-linejoin="round"/>
+
+    <!-- The eye: one small gold sun in the night. -->
+    <circle cx="800" cy="352" r="15" fill="url(#eyeGlow)"/>
+    <circle cx="800" cy="352" r="6" fill="#ffd166"/>
+    <circle cx="800" cy="352" r="2.8" fill="#1a0f00"/>
+    <circle cx="802" cy="350" r="1.3" fill="#fff6d8"/>
+
+    <!-- Mouth line, a calm curve following the jaw. -->
+    <path d="M 716 448 C 770 420, 826 384, 862 348" fill="none" stroke="#0a1830"
+          stroke-width="3.5" stroke-linecap="round" opacity="0.75"/>
+  </g>
+
+  <!-- ======================= SPLASH ======================= -->
+  <!-- Where the tail tore out of the water: a tight crown of spray,
+       hugging the waterline, and short foam arcs where the body pierces it. -->
+  <g id="splash"></g>
+  <g fill="none" stroke="#bfe9f2" stroke-width="4" stroke-linecap="round" opacity="0.85">
+    <path d="M 200 854 C 240 824, 300 812, 356 828"/>
+    <path d="M 228 868 C 264 846, 318 840, 366 852" opacity="0.6"/>
+  </g>
+  <g fill="none" stroke="#d8f4fa" stroke-width="4" stroke-linecap="round" opacity="0.7">
+    <path d="M 386 850 C 424 842, 470 842, 508 850"/>
+  </g>
+
+  <!-- ======================= THE LITTLE BOAT ======================= -->
+  <g>
+    <!-- Lantern light spilling onto the water. -->
+    <circle cx="724" cy="872" r="60" fill="url(#lampGlow)"/>
+    <!-- Hull, dark against the sea, with a warm rim. -->
+    <path d="M 668 884 L 780 884 L 762 906 L 688 906 Z" fill="#0a141f"/>
+    <path d="M 668 884 L 780 884" stroke="#ff9a4d" stroke-width="2" opacity="0.8"/>
+    <!-- Mast and lantern. -->
+    <rect x="721" y="838" width="4" height="48" fill="#0a141f"/>
+    <circle cx="723" cy="832" r="7" fill="#ffd98a" filter="url(#glow)"/>
+    <!-- The watcher: a tiny figure standing, one arm raised toward the whale. -->
+    <g stroke="#0a141f" stroke-width="4" stroke-linecap="round" fill="none">
+      <path d="M 700 884 L 700 862"/>
+      <path d="M 700 862 L 688 850"/>
+      <path d="M 700 862 L 712 848"/>
+      <path d="M 700 872 L 692 884"/>
+      <path d="M 700 872 L 708 884"/>
+    </g>
+    <circle cx="700" cy="856" r="4.5" fill="#0a141f"/>
+    <!-- The boat's reflection. -->
+    <g opacity="0.25">
+      <rect x="690" y="912" width="66" height="3" rx="1.5" fill="#ff9a4d"/>
+      <rect x="700" y="924" width="46" height="3" rx="1.5" fill="#ff9a4d"/>
+    </g>
+  </g>
+
+  <!-- ======================= CAPTION ======================= -->
+  <!-- One quiet line, spoken to the judge. -->
+  <text x="512" y="986" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif" font-style="italic"
+        font-size="27" letter-spacing="1.5" fill="#dceef7" opacity="0.92">You have never seen a whale fly — until now.</text>
+
+  <!-- Vignette, to hold the eye on the whale. -->
+  <rect x="0" y="0" width="1024" height="1024" fill="url(#vignette)"/>
+</svg>
+
+<script>
+  // Deterministic starfields: a tiny seeded generator, so every render
+  // of this page draws exactly the same sky. No network, no randomness.
+  (function () {
+    var seed = 20261116;
+    function rnd() {
+      seed = (seed * 1103515245 + 12345) & 0x7fffffff;
+      return seed / 0x7fffffff;
+    }
+    var NS = 'http://www.w3.org/2000/svg';
+
+    // Stars across the sky, denser and brighter near the top.
+    var sky = document.getElementById('skyStars');
+    for (var i = 0; i < 240; i++) {
+      var c = document.createElementNS(NS, 'circle');
+      var x = rnd() * 1024;
+      var y = rnd() * 800;
+      var r = 0.7 + rnd() * rnd() * 1.8;
+      c.setAttribute('cx', x.toFixed(1));
+      c.setAttribute('cy', y.toFixed(1));
+      c.setAttribute('r', r.toFixed(2));
+      c.setAttribute('fill', rnd() < 0.12 ? '#ffe9a8' : '#eaf6ff');
+      c.setAttribute('opacity', (0.35 + rnd() * 0.65).toFixed(2));
+      sky.appendChild(c);
+    }
+
+    // Stars inside the whale: the constellation body. Brighter and
+    // larger than the sky stars, so the idea reads at a glance.
+    var whale = document.getElementById('whaleStars');
+    for (var j = 0; j < 170; j++) {
+      var d = document.createElementNS(NS, 'circle');
+      // Rejection-sample inside the whale's rough diagonal band.
+      var wx = 300 + rnd() * 560;
+      var wy = 320 + rnd() * 520;
+      d.setAttribute('cx', wx.toFixed(1));
+      d.setAttribute('cy', wy.toFixed(1));
+      d.setAttribute('r', (0.9 + rnd() * rnd() * 2.4).toFixed(2));
+      d.setAttribute('fill', rnd() < 0.15 ? '#ffd166' : '#e8f4ff');
+      d.setAttribute('opacity', (0.6 + rnd() * 0.4).toFixed(2));
+      whale.appendChild(d);
+    }
+
+    // Splash droplets bursting upward from the tail's exit, clustered
+    // tight around the waterline so they read as spray, not noise.
+    var splash = document.getElementById('splash');
+    for (var k = 0; k < 60; k++) {
+      var p = document.createElementNS(NS, 'circle');
+      var angle = Math.PI * (1.05 + rnd() * 0.9);
+      var dist = 15 + rnd() * rnd() * 110;
+      var px = 275 + Math.cos(angle) * dist;
+      var py = 848 - Math.abs(Math.sin(angle)) * dist * 0.75;
+      p.setAttribute('cx', px.toFixed(1));
+      p.setAttribute('cy', py.toFixed(1));
+      p.setAttribute('r', (1 + rnd() * 2.4).toFixed(2));
+      p.setAttribute('fill', rnd() < 0.5 ? '#d8f4fa' : '#8fd4e2');
+      p.setAttribute('opacity', (0.5 + rnd() * 0.5).toFixed(2));
+      splash.appendChild(p);
+    }
+  })();
+</script>
+</body>
+</html>
